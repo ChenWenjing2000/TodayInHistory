@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<Item> listItem;
     MyAdapter adapter;
     ListView listEvent;
+    ProgressBar progressBar;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         today = findViewById(R.id.today);
         listEvent = findViewById(R.id.listEvent);
+        progressBar = findViewById(R.id.progressBar);
         calendar = Calendar.getInstance();
         calendar.set(java.util.Calendar.YEAR, 2020);
         day = calendar.get(Calendar.DAY_OF_YEAR);
@@ -95,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     listItem = (ArrayList<Item>) msg.obj;
                     adapter = new MyAdapter(MainActivity.this, android.R.layout.simple_list_item_1,listItem);
                     listEvent.setAdapter(adapter);
+                    progressBar.setVisibility(View.GONE);
                 }
                 super.handleMessage(msg);
             }
@@ -171,6 +175,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         today.setText(desc);
         calendar.set(java.util.Calendar.MONTH, i1);
         calendar.set(java.util.Calendar.DAY_OF_MONTH, i2);
+        day = calendar.get(Calendar.DAY_OF_YEAR);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("day",day);
+        editor.commit();
+        Log.i(TAG, "onClick: day"+day);
+        extracted();
     }
 
     @Override

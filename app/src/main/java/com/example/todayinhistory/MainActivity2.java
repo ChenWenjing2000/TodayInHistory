@@ -11,6 +11,7 @@ import android.os.Message;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class MainActivity2 extends AppCompatActivity {
     Handler handler;
     TextView detailtext;
     TextView detailtitle;
+    ProgressBar progressBar2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class MainActivity2 extends AppCompatActivity {
         url = more.getStringExtra("detail");
         detailtext = findViewById(R.id.detailtext);
         detailtitle = findViewById(R.id.detailtitle);
+        progressBar2 = findViewById(R.id.progressBar2);
 
         handler = new Handler(Looper.myLooper()){
             @Override
@@ -54,8 +57,8 @@ public class MainActivity2 extends AppCompatActivity {
                         else
                             newline=newline+lineArr[j];
                     }
-
                     detailtext.setText(newline);
+                    progressBar2.setVisibility(View.GONE);
                 }
                 super.handleMessage(msg2);
             }
