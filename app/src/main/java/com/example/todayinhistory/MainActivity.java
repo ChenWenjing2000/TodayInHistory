@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.preference.PreferenceFragment;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +88,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listEvent.setOnItemClickListener(this);
 
         extracted();
+
+    }
+
+    public static class MyPreferenceFragment extends PreferenceFragment {
 
     }
 
@@ -187,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         Object itemAtPosition = listEvent.getItemAtPosition(position);
         Item item = (Item) itemAtPosition;
-        String text = item.gettext();
+        String text = item.gettext()+"\n"+item.gettitle();
         String detail = item.getdetail();
 
         Intent more = new Intent(this,MainActivity2.class);

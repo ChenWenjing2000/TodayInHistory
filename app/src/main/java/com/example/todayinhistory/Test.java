@@ -41,9 +41,10 @@ public class Test implements Runnable {
                 Log.i(TAG, "run: as"+as.size());
                 listItem = new ArrayList<Item>();
                 for (int i=0;i<as.size();i=i+3) {
-                    String str1 = as.get(i).text()+as.get(i+1).text()+"\n"+as.get(i+2).text();
+                    String str1 = as.get(i).text()+as.get(i+1).text();
                     String str2 = as.get(i+2).attr("href").toString();
-                    Item item = new Item(str1,str2);
+                    String str3 = as.get(i+2).text();
+                    Item item = new Item(str1,str2,str3);
                     listItem.add(item);
                 }
                 Log.i(TAG, "run: listItem"+listItem.size());

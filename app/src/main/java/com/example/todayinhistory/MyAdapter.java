@@ -30,6 +30,8 @@ public class MyAdapter extends ArrayAdapter {
         Item item = (Item) getItem(position);
         TextView Text = (TextView) itemView.findViewById(R.id.itemText);
         Text.setText(item.gettext());
+        TextView Text1 = (TextView) itemView.findViewById(R.id.itemTitle);
+        Text1.setText(item.gettitle());
         return itemView;
     }
 }
