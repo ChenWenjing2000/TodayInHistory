@@ -3,6 +3,7 @@ package com.example.todayinhistory;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -14,8 +15,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.preference.PreferenceFragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,22 +25,16 @@ import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+public class MainActivity5 extends Fragment implements View.OnClickListener , DatePickerDialog.OnDateSetListener , AdapterView.OnItemClickListener{
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener , AdapterView.OnItemClickListener{
+    private String TAG = "MainActivity5";
 
-    private String TAG = "MainActivity";
-
-    private Button today;
+    Button today;
     Calendar calendar;
     String desc;
     Date max;
@@ -53,45 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ListView listEvent;
     ProgressBar progressBar;
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        today = findViewById(R.id.today);
-        listEvent = findViewById(R.id.listEvent);
-        progressBar = findViewById(R.id.progressBar);
-        calendar = Calendar.getInstance();
-        calendar.set(java.util.Calendar.YEAR, 2020);
-        day = calendar.get(Calendar.DAY_OF_YEAR);
-        sp = getSharedPreferences("mydate", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putInt("day",day);
-        editor.commit();
-        Log.i(TAG, "onCreate: day"+day);
-
-        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            max = simpleDateFormat.parse("2020-12-31");
-            min = simpleDateFormat.parse("2020-01-01");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        desc = String.format("%d月%d日", calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
-        today.setText(desc);
-
-        today.setOnClickListener(this);
-        findViewById(R.id.prior).setOnClickListener(this);
-        findViewById(R.id.next).setOnClickListener(this);
-        listEvent.setOnItemClickListener(this);
-
-        extracted();
-
-    }
-
-    public static class MyPreferenceFragment extends PreferenceFragment {
 
     }
 
@@ -101,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void handleMessage(@NonNull Message msg) {
                 if(msg.what == 1) {
                     listItem = (ArrayList<Item>) msg.obj;
-                    adapter = new MyAdapter(MainActivity.this, android.R.layout.simple_list_item_1,listItem);
+                    adapter = new MyAdapter(getContext(), android.R.layout.simple_list_item_1,listItem);
                     listEvent.setAdapter(adapter);
                     progressBar.setVisibility(View.GONE);
                 }
@@ -118,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.today) {
-            DatePickerDialog dialog = new DatePickerDialog(this, DatePickerDialog.THEME_HOLO_LIGHT, this,
+            DatePickerDialog dialog = new DatePickerDialog(getContext(), DatePickerDialog.THEME_HOLO_LIGHT, this,
                     calendar.get(Calendar.YEAR),
                     calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.DAY_OF_MONTH));
@@ -192,17 +151,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         Object itemAtPosition = listEvent.getItemAtPosition(position);
         Item item = (Item) itemAtPosition;
-        String text = item.gettext()+"\n"+item.gettitle();
+        String text = item.gettext();
+        String title = item.gettitle();
         String detail = item.getdetail();
 
-        Intent more = new Intent(this,MainActivity2.class);
+        Intent more = new Intent(getContext(),MainActivity2.class);
         more.putExtra("text",text);
+        more.putExtra("title",title);
         more.putExtra("detail",detail);
         startActivity(more);
 
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_main5, container, false);
+
+        today = view.findViewById(R.id.today);
+        listEvent = view.findViewById(R.id.listEvent);
+        progressBar = view.findViewById(R.id.progressBar);
+
+        calendar = Calendar.getInstance();
+        calendar.set(java.util.Calendar.YEAR, 2020);
+        day = calendar.get(Calendar.DAY_OF_YEAR);
+        sp = getContext().getSharedPreferences("mydate", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("day",day);
+        editor.commit();
+        Log.i(TAG, "onCreate: day"+day);
+
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            max = simpleDateFormat.parse("2020-12-31");
+            min = simpleDateFormat.parse("2020-01-01");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        desc = String.format("%d月%d日", calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+        today.setText(desc);
+
+        today.setOnClickListener(this);
+        view.findViewById(R.id.prior).setOnClickListener(this);
+        view.findViewById(R.id.next).setOnClickListener(this);
+        listEvent.setOnItemClickListener(this);
+
+        extracted();
+
+        return view;
+    }
 }
-
-
-
-

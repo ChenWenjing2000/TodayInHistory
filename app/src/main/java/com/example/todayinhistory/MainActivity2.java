@@ -1,6 +1,7 @@
 package com.example.todayinhistory;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,21 +11,24 @@ import android.os.Looper;
 import android.os.Message;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MainActivity2 extends AppCompatActivity {
+public class MainActivity2 extends AppCompatActivity{
 
     private String TAG = "MainActivity2";
     String text;
+    String title;
     String url;
     String moredetail;
     Handler handler;
     TextView detailtext;
     TextView detailtitle;
+    TextView detailtitle2;
     ProgressBar progressBar2;
 
     @Override
@@ -32,11 +36,16 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         Intent more = getIntent();
         text = more.getStringExtra("text");
+        title = more.getStringExtra("title");
         url = more.getStringExtra("detail");
         detailtext = findViewById(R.id.detailtext);
         detailtitle = findViewById(R.id.detailtitle);
+        detailtitle2 = findViewById(R.id.detailtitle2);
         progressBar2 = findViewById(R.id.progressBar2);
 
         handler = new Handler(Looper.myLooper()){
@@ -45,6 +54,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if(msg2.what == 2) {
                     moredetail = (String) msg2.obj;
                     detailtitle.setText(text);
+                    detailtitle2.setText(title);
                     detailtext.setMovementMethod(ScrollingMovementMethod.getInstance());
                     String[] lineArr = moredetail.split("<br>");
                     String newline="";
@@ -70,7 +80,14 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 
-    public void back(View view){
-        finish();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+            return true;
+        }
+        super.onOptionsItemSelected(item);
+        return true;
     }
+
 }

@@ -14,12 +14,20 @@
         android:theme="@style/Theme.TodayInHistory"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".MainActivity5"
+            android:exported="true" />
+        <activity
+            android:name=".Main"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity4"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity3"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity2"
-            android:exported="true">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity"/>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
