@@ -151,14 +151,14 @@ public class MainActivity5 extends Fragment implements View.OnClickListener , Da
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         Object itemAtPosition = listEvent.getItemAtPosition(position);
         Item item = (Item) itemAtPosition;
-        String text = item.gettext();
-        String title = item.gettitle();
-        String detail = item.getdetail();
+        String text = item.getText();
+        String title = item.getTitle();
+        String href = item.getHref();
 
         Intent more = new Intent(getContext(),MainActivity2.class);
         more.putExtra("text",text);
         more.putExtra("title",title);
-        more.putExtra("detail",detail);
+        more.putExtra("href",href);
         startActivity(more);
 
     }

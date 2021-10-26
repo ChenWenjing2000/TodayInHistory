@@ -29,9 +29,9 @@ public class MyAdapter extends ArrayAdapter {
         }
         Item item = (Item) getItem(position);
         TextView Text = (TextView) itemView.findViewById(R.id.itemText);
-        Text.setText(item.gettext());
+        Text.setText(item.getText());
         TextView Text1 = (TextView) itemView.findViewById(R.id.itemTitle);
-        Text1.setText(item.gettitle());
+        Text1.setText(item.getTitle());
         return itemView;
     }
 }

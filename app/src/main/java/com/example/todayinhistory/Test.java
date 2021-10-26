@@ -36,6 +36,7 @@ public class Test implements Runnable {
                 String url = "http://today.911cha.com/history_"+day+".html";
                 Document doc = Jsoup.connect(url).get();
                 Elements ps = doc.getElementsByTag("p");
+                Log.i(TAG, "run: ps"+ps.text());
                 Element p = ps.get(0);
                 Elements as = p.getElementsByTag("a");
                 Log.i(TAG, "run: as"+as.size());
@@ -44,7 +45,7 @@ public class Test implements Runnable {
                     String str1 = as.get(i).text()+as.get(i+1).text();
                     String str2 = as.get(i+2).attr("href").toString();
                     String str3 = as.get(i+2).text();
-                    Item item = new Item(str1,str2,str3);
+                    Item item = new Item(str1,str3,str2);
                     listItem.add(item);
                 }
                 Log.i(TAG, "run: listItem"+listItem.size());

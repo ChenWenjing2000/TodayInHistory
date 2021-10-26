@@ -2,36 +2,36 @@ package com.example.todayinhistory;
 
 public class Item {
     private String text;
-    private String detail;
     private String title;
+    private String href;
 
-    public Item(String text, String detail,String title) {
+    public Item(String text, String title,String href) {
         this.text = text;
-        this.detail = detail;
         this.title = title;
+        this.href = href;
     }
 
-    public String gettext() {
+    public String getText() {
         return text;
     }
 
-    public void settext(String text) {
+    public void setText(String text) {
         this.text = text;
     }
 
-    public String getdetail() {
-        return detail;
-    }
-
-    public void setdetail(String detail) {
-        this.detail = detail;
-    }
-
-    public String gettitle() {
+    public String getTitle() {
         return title;
     }
 
-    public void settitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
     }
 }
