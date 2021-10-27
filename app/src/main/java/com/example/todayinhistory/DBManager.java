@@ -1,6 +1,7 @@
 package com.example.todayinhistory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -33,6 +34,10 @@ public class DBManager {
 
     public void addr(Item item){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.query(TB_NAME_1, null, "HREF=?", new String[]{item.getHref()}, null, null, null);
+        if(cursor!=null){
+            db.delete(TB_NAME_2, "HREF=?", new String[]{item.getHref()});
+        }
         ContentValues values = new ContentValues();
         values.put("text", item.getText());
         values.put("title", item.getTitle());
@@ -84,22 +89,23 @@ public class DBManager {
 
     @SuppressLint("Range")
     public ArrayList<Item> listrAll(){
-        ArrayList<Item> rateList = null;
+        ArrayList<Item> recordsList = null;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(TB_NAME_2, null, null, null, null, null, null);
         if(cursor!=null){
-            rateList = new ArrayList<Item>();
+            recordsList = new ArrayList<Item>();
             while(cursor.moveToNext()){
                 Item item = new Item(null,null,null);
                 item.setText(cursor.getString(cursor.getColumnIndex("TEXT")));
                 item.setTitle(cursor.getString(cursor.getColumnIndex("TITLE")));
                 item.setHref(cursor.getString(cursor.getColumnIndex("HREF")));
-                rateList.add(item);
+                recordsList.add(item);
             }
+            Collections.reverse(recordsList);
             cursor.close();
         }
         db.close();
-        return rateList;
+        return recordsList;
 
     }
 

@@ -39,12 +39,6 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -87,11 +81,17 @@ public class MainActivity2 extends AppCompatActivity {
         Test2 test2 = new Test2(url);
         test2.setHandler(handler);
         new Thread(test2).start();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        DBManager dbManager = new DBManager(this);
         final MenuItem item = menu.findItem(R.id.collect);
         if (dbManager.findById(url) == null) {
-            item.setIcon(getResources().getDrawable(android.R.drawable.btn_star_big_on));
-        } else {
             item.setIcon(getResources().getDrawable(android.R.drawable.btn_star_big_off));
+        } else {
+            item.setIcon(getResources().getDrawable(android.R.drawable.btn_star_big_on));
         }
         return true;
     }

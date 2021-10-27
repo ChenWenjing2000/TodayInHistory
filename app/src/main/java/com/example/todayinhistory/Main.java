@@ -2,6 +2,10 @@ package com.example.todayinhistory;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
@@ -10,6 +14,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.widget.AdapterView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -20,29 +25,11 @@ public class Main extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_);
 
-        ViewPager2 viewPager = findViewById(R.id.viewPage2);
-        MyPageAdapter pageAdapter = new MyPageAdapter(this);
-        viewPager.setAdapter(pageAdapter);
-
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-        new TabLayoutMediator(tabLayout, viewPager,
-                (tab, position) -> tab.setText("OBJECT " + (position + 1))
-        ).attach();
-
-        TabLayoutMediator mediator = new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                //设置tab标题
-                if(position == 0){
-                    tab.setText("History");
-                }else if(position == 1){
-                    tab.setText("Collection");
-                }else{
-                    tab.setText("Records");
-                }
-            }
-        });
-        mediator.attach();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        NavController navController = Navigation.findNavController(this, R.id.fragment);
+        AppBarConfiguration configuration = new AppBarConfiguration.Builder(bottomNavigationView.getMenu()).build();
+        NavigationUI.setupActionBarWithNavController(this, navController, configuration);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
 
     public static class DBHelper extends SQLiteOpenHelper {

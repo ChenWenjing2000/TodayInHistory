@@ -32,9 +32,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MainActivity5 extends Fragment implements View.OnClickListener , DatePickerDialog.OnDateSetListener , AdapterView.OnItemClickListener{
+public class HistoryFragment extends Fragment implements View.OnClickListener , DatePickerDialog.OnDateSetListener , AdapterView.OnItemClickListener{
 
-    private String TAG = "MainActivity5";
+    private String TAG = "HistoryFragment";
 
     Button today;
     Button prior;

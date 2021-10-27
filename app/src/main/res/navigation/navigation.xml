@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/historyfragment">
+
+    <fragment
+        android:id="@+id/historyfragment"
+        android:name="com.example.todayinhistory.HistoryFragment"
+        android:label="History"
+        tools:layout="@layout/history_fragment" />
+    <fragment
+        android:id="@+id/collectionfragment"
+        android:name="com.example.todayinhistory.CollectionFragment"
+        android:label="Collections"
+        tools:layout="@layout/collection_fragment" />
+    <fragment
+        android:id="@+id/recordsfragment"
+        android:name="com.example.todayinhistory.RecordsFragment"
+        android:label="Records"
+        tools:layout="@layout/records_fragment" />
+</navigation>
