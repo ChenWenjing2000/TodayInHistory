@@ -13,19 +13,22 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class CollectionFragment extends Fragment implements AdapterView.OnItemClickListener{
 
     ListView collectionlist;
     ProgressBar progressBar;
     private AddViewModel mViewModel;
+    TextView nodata;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_main3, container, false);
+        View view = inflater.inflate(R.layout.collection_fragment, container, false);
         progressBar = view.findViewById(R.id.progressBar);
         collectionlist = view.findViewById(R.id.collectionlist);
+        nodata = view.findViewById(R.id.no_data);
 
         return view;
     }
@@ -38,6 +41,7 @@ public class CollectionFragment extends Fragment implements AdapterView.OnItemCl
         DBManager dbManager = new DBManager(getContext());
         MyAdapter adapter = new MyAdapter(getContext(), android.R.layout.simple_list_item_1,dbManager.listcAll());
         collectionlist.setAdapter(adapter);
+        collectionlist.setEmptyView(nodata);
         progressBar.setVisibility(View.GONE);
         collectionlist.setOnItemClickListener(this);
     }

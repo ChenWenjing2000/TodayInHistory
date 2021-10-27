@@ -4,7 +4,7 @@
     <item android:title="History"
         android:icon="@drawable/book"
         android:id="@+id/historyfragment"/>
-    <item android:title="Collection"
+    <item android:title="Collections"
         android:icon="@drawable/shoucang"
         android:id="@+id/collectionfragment"/>
     <item android:title="Records"

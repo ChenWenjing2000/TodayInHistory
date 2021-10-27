@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,7 +58,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener , 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_main5, container, false);
+        View view = inflater.inflate(R.layout.history_fragment, container, false);
 
         today = view.findViewById(R.id.today);
         listEvent = view.findViewById(R.id.listEvent);
