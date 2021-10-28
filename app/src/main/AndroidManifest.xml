@@ -7,30 +7,17 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TodayInHistory"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".MainActivity5"
-            android:exported="true"
-            tools:ignore="Instantiatable"
-            android:label="History"/>
+
         <activity
             android:name=".Main"
             android:exported="true" />
-        <activity
-            android:name=".MainActivity4"
-            android:exported="true"
-            tools:ignore="Instantiatable"
-            android:label="Records"/>
-        <activity
-            android:name=".MainActivity3"
-            android:exported="true"
-            tools:ignore="Instantiatable"
-            android:label="Collection"/>
+
         <activity
             android:name=".MainActivity2"
             android:exported="true"
