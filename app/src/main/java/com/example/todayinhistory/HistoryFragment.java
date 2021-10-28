@@ -137,7 +137,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener , 
 
             DatePicker dp = findDatePicker((ViewGroup) dialog.getWindow().getDecorView());
             if (dp != null) {
-                ((ViewGroup) (((ViewGroup) dp.getChildAt(0)).getChildAt(0))).getChildAt(2).setVisibility(View.GONE);
+                ((ViewGroup) (((ViewGroup) dp.getChildAt(0)).getChildAt(0))).getChildAt(0).setVisibility(View.GONE);
             }
         } else if (view.getId() == R.id.prior) {
             calendar.add(Calendar.DAY_OF_MONTH, -1);
